@@ -1,0 +1,19 @@
+public class IngredientInventory : MonoBehaviour {
+    public Dictionary<string, int> inventory = new();
+
+    public void AddIngredient(string name, int amount = 1) {
+        if (inventory.ContainsKey(name)) inventory[name] += amount;
+        else inventory[name] = amount;
+    }
+
+    public bool HasIngredient(string name, int requiredAmount = 1) {
+        return inventory.ContainsKey(name) && inventory[name] >= requiredAmount;
+    }
+
+    public void UseIngredient(string name, int amount = 1) {
+        if (HasIngredient(name, amount)) {
+            inventory[name] -= amount;
+            if (inventory[name] <= 0) inventory.Remove(name);
+        }
+    }
+}
